@@ -17,6 +17,19 @@ Since the experimental pipeline is highly streamlined, all processes—from data
 * `causal_credit_underwriting.ipynb`: The main notebook containing the entire experiment pipeline.
 * `requirements.txt`: List of required Python packages.
 
+## 📂 Repository Structure & A Note on Reproducibility
+
+To ensure maximum transparency and reproducibility, we provide two separate Jupyter Notebooks in this repository:
+
+1. 📄 **`01_Paper_Results_Snapshot_VN.ipynb` (Original Log Snapshot)**
+   * **Purpose:** This notebook contains the exact execution logs, outputs, and figures (with original Vietnamese print statements) that match the numbers presented in the submitted manuscript (Table I, II, III and Fig 1, 2) with 100% fidelity.
+   * **Note:** Because the continuous non-linear DAG discovery (`NOTEARS-MLP`) and CatBoost baseline entail stochastic weight initializations, and a global random seed was strictly not enforced during the initial exploratory run, rerunning this exact notebook will yield slightly different numerical values.
+
+2. 🚀 **`02_Reproducible_Pipeline_EN.ipynb` (Seeded, English Version)**
+   * **Purpose:** This is the clean, English-translated pipeline designed for reviewers and researchers to run. 
+   * **Reproducibility:** We have added explicit global random seeds (e.g., `np.random.seed(42)`, `torch.manual_seed(42)`) at the beginning of this notebook. 
+   * **Disclaimer:** While running this notebook will produce slightly different numerical outputs compared to the manuscript due to the newly enforced seed, **the core structural findings remain identical**. Specifically, CatBoost-SHAP will still misattribute importance to `sub_grade`, while Causal ICC will robustly unmask `int_rate` as the true root cause, proving the theoretical claims of the paper.
+   
 ## 💾 Dataset
 The experiments utilize the **LendingClub 2007-2020Q3** dataset.
 * **Source:** [Kaggle - Lending Club Dataset](https://www.kaggle.com/datasets/ethon0426/lending-club-20072020q1)
